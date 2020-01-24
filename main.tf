@@ -100,12 +100,11 @@ resource "vsphere_virtual_machine" "vm" {
         domain_admin_user     = var.win_domain_admin_user
         domain_admin_password = var.win_domain_admin_password
         product_key           = var.win_product_key
-        time_zone             = var.time_zone
+        time_zone             = var.win_time_zone
         full_name             = var.win_full_name
         admin_password        = var.win_admin_password
         auto_logon            = true
-        run_once_command_list = ["net user ${var.win_full_name} /active:yes"]
-        # https://github.com/terraform-providers/terraform-provider-vsphere/issues/118
+        run_once_command_list = var.win_run_once_command_list
       }
 
       network_interface {

@@ -53,7 +53,7 @@ variable "second_disk_type" {
 }
 variable "time_zone" {
   type = string
-  description = "The timezone to set in the OS. EX: MST7MDT"
+  description = "The timezone to set in the Linux OS. EX: MST7MDT"
 }
 variable "vlan_main" {
   type = string
@@ -111,6 +111,8 @@ variable "win_full_name" {
   type = string
   default = null
   description = "[WINDOWS ONLY] The full name of the user of this virtual machine. This populates the 'user' field in the general Windows system information. Default: Administrator."
+  // If you use this variable to something other than the default, ensure you set the win_full_name variable as well.
+  // https://github.com/terraform-providers/terraform-provider-vsphere/issues/118
 }
 variable "win_admin_password" {
   type = string
@@ -141,6 +143,17 @@ variable "win_domain_admin_password" {
   type = string
   default = null
   description = "[WINDOWS ONLY] The password of the domain administrator used to join this virtual machine to the domain. Required if you are setting win_join_domain."
+}
+variable "win_time_zone" {
+  type = string
+  default = null
+  description = "[WINDOWS ONLY] The new time zone for the virtual machine. This is a numeric, sysprep-dictated, timezone code."
+}
+variable "win_run_once_command_list" {
+  type = list(string)
+  default = ["net user Administrator /active:yes"]
+  // Be sure you use this variable with the right value if you change the win_full_name variable.
+  // https://github.com/terraform-providers/terraform-provider-vsphere/issues/118
 }
 variable "nested_hv_enabled" {
   type = bool
