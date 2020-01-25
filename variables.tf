@@ -51,10 +51,6 @@ variable "second_disk_type" {
   default = "thin"
   description = "The type of second disk to create. Can be one of eagerZeroedThick, lazy, or thin. Default: eagerZeroedThick."
 }
-variable "time_zone" {
-  type = string
-  description = "The timezone to set in the Linux OS. EX: MST7MDT"
-}
 variable "vlan_main" {
   type = string
   description = "The name of the vSphere network to attach as a Network Adapter to the VM."
@@ -62,11 +58,6 @@ variable "vlan_main" {
 variable "domain" {
   type = string
   description = "The domain name for this machine. This, along with host_name, make up the FQDN of this virtual machine. EX: COMPANY.com"
-}
-variable "dns_suffix_list" {
-  type = list(string)
-  default = null
-  description = "A list of DNS search domains to add to the DNS configuration on the virtual machine. If the VM has Windows, use win_dns_domain instead. EX: [\"COMPANY.com\"]"
 }
 variable "dns_server_list" {
   type = list(string)
@@ -102,57 +93,57 @@ variable "ipv6_gateway" {
   default = null
   description = "The IPv6 Gateway to communicate with to get the DHCP address for the VM's network."
 }
-variable "win_product_key" {
+variable "product_key" {
   type = string
   default = null
-  description = "[WINDOWS ONLY] The product key for this virtual machine."
+  description = "The product key for this virtual machine."
 }
-variable "win_full_name" {
+variable "full_name" {
   type = string
   default = null
-  description = "[WINDOWS ONLY] The full name of the user of this virtual machine. This populates the 'user' field in the general Windows system information. Default: Administrator."
-  // If you use this variable to something other than the default, ensure you set the win_full_name variable as well.
+  description = "The full name of the user of this virtual machine. This populates the 'user' field in the general Windows system information. Default: Administrator."
+  // If you use this variable to something other than the default, ensure you set the full_name variable as well.
   // https://github.com/terraform-providers/terraform-provider-vsphere/issues/118
 }
-variable "win_admin_password" {
+variable "admin_password" {
   type = string
   default = null
-  description = "[WINDOWS ONLY] The administrator password for this virtual machine."
+  description = "The administrator password for this virtual machine."
 }
-variable "win_dns_domain" {
+variable "dns_domain" {
   type = string
   default = null
-  description = "[WINDOWS ONLY] Network interface-specific DNS search domain for Windows operating systems."
+  description = "Network interface-specific DNS search domain for Windows operating systems."
 }
-variable "win_workgroup" {
+variable "workgroup" {
   type = string
   default = null
-  description = "[WINDOWS ONLY] The workgroup name for this virtual machine. One of this or win_join_domain must be included. If used, this is generally set to 'WORKGROUP'."
+  description = "The workgroup name for this virtual machine. One of this or join_domain must be included. If used, this is generally set to 'WORKGROUP'."
 }
-variable "win_join_domain" {
+variable "join_domain" {
   type = string
   default = null
-  description = "[WINDOWS ONLY] The domain to join for this virtual machine. One of this or win_workgroup must be included."
+  description = "The domain to join for this virtual machine. One of this or workgroup must be included."
 }
-variable "win_domain_admin_user" {
+variable "domain_admin_user" {
   type = string
   default = null
-  description = "[WINDOWS ONLY] The user of the domain administrator used to join this virtual machine to the domain. Required if you are setting win_join_domain."
+  description = "The user of the domain administrator used to join this virtual machine to the domain. Required if you are setting join_domain."
 }
-variable "win_domain_admin_password" {
+variable "domain_admin_password" {
   type = string
   default = null
-  description = "[WINDOWS ONLY] The password of the domain administrator used to join this virtual machine to the domain. Required if you are setting win_join_domain."
+  description = "The password of the domain administrator used to join this virtual machine to the domain. Required if you are setting join_domain."
 }
-variable "win_time_zone" {
-  type = string
+variable "time_zone" {
+  type = number
   default = null
-  description = "[WINDOWS ONLY] The new time zone for the virtual machine. This is a numeric, sysprep-dictated, timezone code."
+  description = "The new time zone for the virtual machine. This is a numeric, sysprep-dictated, timezone code."
 }
-variable "win_run_once_command_list" {
+variable "run_once_command_list" {
   type = list(string)
   default = ["net user Administrator /active:yes"]
-  // Be sure you use this variable with the right value if you change the win_full_name variable.
+  // Be sure you use this variable with the right value if you change the full_name variable.
   // https://github.com/terraform-providers/terraform-provider-vsphere/issues/118
 }
 variable "nested_hv_enabled" {
