@@ -140,6 +140,11 @@ variable "time_zone" {
   default = null
   description = "The new time zone for the virtual machine. This is a numeric, sysprep-dictated, timezone code."
 }
+variable "auto_logon" {
+  type = bool
+  default = true
+  description = "Specifies whether or not the VM automatically logs on as Administrator."
+}
 variable "run_once_command_list" {
   type = list(string)
   default = ["net user Administrator /active:yes"]

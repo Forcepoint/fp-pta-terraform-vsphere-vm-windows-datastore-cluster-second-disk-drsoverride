@@ -97,7 +97,7 @@ resource "vsphere_virtual_machine" "vm" {
         time_zone             = var.time_zone
         full_name             = var.full_name
         admin_password        = var.admin_password
-        auto_logon            = true
+        auto_logon            = var.auto_logon
         run_once_command_list = var.run_once_command_list
       }
 
