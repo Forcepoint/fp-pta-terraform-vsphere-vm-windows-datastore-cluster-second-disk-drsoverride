@@ -143,7 +143,7 @@ variable "auto_logon" {
 }
 variable "run_once_command_list" {
   type = list(string)
-  default = ["net user Administrator /active:yes"]
+  default = ["net user Administrator /active:yes", "rundll32.exe user32.dll, LockWorkStation"]
   // Be sure you use this variable with the right value if you change the full_name variable.
   // https://github.com/terraform-providers/terraform-provider-vsphere/issues/118
 }
